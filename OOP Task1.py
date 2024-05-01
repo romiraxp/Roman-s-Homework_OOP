@@ -24,13 +24,13 @@ class Mentor:
         else:
             return 'Ошибка'
 
-class Lecturer(Mentor):
-    def __init__(self, name, surname):
-        super().__init__(name, surname)
+class Lecturer(Mentor): #создаем класс Lecturer с наследованием от родительского класса Mentor
+    def __init__(self, name, surname): #инициализация класса Lecturer
+        super().__init__(name, surname) #ссылаемся на класс Mentor чтобы получить его аттрибуты для дальнейшего использования
 
-class Reviewer(Mentor):
-    def __init__(self, name, surname):
-        super().__init__(name, surname)
+class Reviewer(Mentor): #создаем класс Reviewer с наследованием от родительского класса Mentor
+    def __init__(self, name, surname): #инициализация класса Reviewer
+        super().__init__(name, surname) #ссылаемся на класс Mentor чтобы получить его аттрибуты для дальнейшего использования
 
 best_student = Student('Ruoy', 'Eman', 'your_gender')
 best_student.courses_in_progress += ['Python']
@@ -45,3 +45,4 @@ cool_mentor.rate_hw(best_student, 'Python', 10)
 print(best_student.grades)
 l=Lecturer("Роман","Подкорытов")
 r=Reviewer("Олег","Подкорытов")
+print(l.name, l.surname)
