@@ -24,6 +24,26 @@ class Student:
                 f'>>>Средняя оценка за домашние задания: {avg_student_grades}\n>>>Курсы в процессе изучения: ' \
                 f'{", ".join(best_student.courses_in_progress)}\n>>>Завершенные курсы: {", ".join(best_student.finished_courses)}'
 
+    def __gt__(self, other: 'Lecturer'): #метод сравнения greater than
+        st = avg_student_grades #помещаем в переменную st среднее значение оценок студента по курсу
+        lct = avg_lecturer_grades #помещаем в переменную lct среднее значение оценок лектора по курсу
+        return self.st > other.lct #возвращаем результат. Вернет True, если средняя оценка студента лучше средней оценки лектора
+
+    def __lt__(self, other: 'Lecturer'): #метод сравнения less than
+        st = avg_student_grades
+        lct = avg_lecturer_grades
+        return self.st < other.lct #возвращаем результат. Вернет True, если средняя оценка студента ниже средней оценки лектора
+
+    def __ge__(self, other: 'Lecturer'): #метод сравнения greater or equal
+        st = avg_student_grades
+        lct = avg_lecturer_grades
+        return self.st >= other.lct #возвращаем результат. Вернет True, если средняя оценка студента лучше или равна средней оценки лектора
+
+    def __le__(self, other: 'Lecturer'):
+        st = avg_student_grades
+        lct = avg_lecturer_grades
+        return self.st <= other.lct #возвращаем результат. Вернет True, если средняя оценка студента ниже или равна средней оценки лектора
+
 class Mentor:
     def __init__(self, name, surname):
         # print(f"Инициализатор класса {self.__class__}")
@@ -41,6 +61,9 @@ class Lecturer(Mentor): #наследуемый класс Lecturer от осн�
     def __str__(self): #метод __str__ преобразующий вывод результата
         return f'Лектор:\n>>>Имя: {self.name}\n>>>Фамилия: {self.surname}\n>>>Средняя оценка за лекции: {avg_lecturer_grades}'
 
+#    def __gt__(self, other):
+#        v = avg_lecturer_grades
+#        return self.v > other.v
 class Reviewer(Mentor):
     '''класс проверяющий'''
     def __init__(self, name, surname):
@@ -76,14 +99,14 @@ cool_reviewer.rate_hw(best_student, 'Python', 10) #вызываем метод r
 cool_reviewer.rate_hw(best_student, 'Python', 10) #вызываем метод rate_hw в который передается значение best_student = Ruoy Eman , название курса = Python и оценка = 10 баллов
 cool_reviewer.rate_hw(best_student, 'Python', 9) #вызываем метод rate_hw в который передается значение best_student = Ruoy Eman , название курса = Python и оценка = 9 баллов
 
-best_student.lecturer_grade(best_lecturer, 'Java Script', 5) #вызываем метод rate_hw в который передается значение best_lecturer = Ruoy Eman , название курса = Java Script и оценка = 5 баллов
-best_student.lecturer_grade(best_lecturer, 'Java Script', 8) #вызываем метод rate_hw в который передается значение best_lecturer = Ruoy Eman , название курса = Java Script и оценка = 8 баллов
+best_student.lecturer_grade(best_lecturer, 'Java Script', 8) #вызываем метод rate_hw в который передается значение best_lecturer = Ruoy Eman , название курса = Java Script и оценка = 5 баллов
+best_student.lecturer_grade(best_lecturer, 'Java Script', 5) #вызываем метод rate_hw в который передается значение best_lecturer = Ruoy Eman , название курса = Java Script и оценка = 8 баллов
 
-#подсчет средней оценки по курсу Python для студента. 
+#подсчет средней оценки по курсу Python для студента.
 #Считаем сумму элементов списка для ключа=Python и делим на кол-во элементов этгго списка для этого же ключа. Округляем до одного знака почле запятой
-avg_student_grades = round(sum(best_student.grades['Python'])/len(best_student.grades['Python']),1) 
+avg_student_grades = round(sum(best_student.grades['Python'])/len(best_student.grades['Python']),1)
 
-#подсчет средней оценки по курсу Java Script для лектора. 
+#подсчет средней оценки по курсу Java Script для лектора.
 #Считаем сумму элементов списка для ключа=Java Script и делим на кол-во элементов этгго списка для этого же ключа. Округляем до одного знака почле запятой
 avg_lecturer_grades = round(sum(best_lecturer.grades['Java Script'])/len(best_lecturer.grades['Java Script']),1)
 
@@ -96,5 +119,16 @@ print()
 print(best_lecturer)
 print()
 print(best_student)
+print()
+if avg_student_grades > avg_lecturer_grades:
+    print(f'Оценка студента лучше: {avg_student_grades} оценки лектора: {avg_lecturer_grades}')
+elif avg_student_grades < avg_lecturer_grades:
+    print(f'Оценка лектора лучше: {avg_lecturer_grades} оценки студента: {avg_student_grades}')
+elif avg_student_grades >= avg_lecturer_grades:
+    print(f'Оценка студента не хуже: {avg_student_grades} оценки лектора: {avg_lecturer_grades}')
+elif avg_student_grades <= avg_lecturer_grades:
+    print(f'Оценка лектора не хуже: {avg_lecturer_grades} оценки студента: {avg_student_grades}')
 
-print(f'Оценка студента лучше: {avg_student_grades}') if avg_student_grades > avg_lecturer_grades else print(f'Оценка лектора лучше: {avg_lecturer_grades}')
+#else:
+#    print('Оценки равны')
+#print(f'Оценка студента лучше: {avg_student_grades}') if avg_student_grades > avg_lecturer_grades else print(f'Оценка лектора лучше: {avg_lecturer_grades}')
